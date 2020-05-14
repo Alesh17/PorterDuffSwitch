@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PorterDuffSwitch">
+        <attr name="pds_textSize" format="dimension" />
+        <attr name="pds_fontFamily" format="string" />
+        <attr name="pds_indent" format="dimension" />
+        <attr name="pds_leftText" format="string" />
+        <attr name="pds_rightText" format="string" />
+        <attr name="pds_activeColor" format="color" />
+        <attr name="pds_inactiveColor" format="color" />
+        <attr name="pds_defaultPosition">
+            <enum name="left" value="0" />
+            <enum name="right" value="1" />
+        </attr>
+    </declare-styleable>
+</resources>
