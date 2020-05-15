@@ -42,17 +42,23 @@ XML
 
 You must use the following properties in your XML to change switch.
 
-##### Properties:
+##### Properties in xml:
 
 * `app:pds_colorActive`            (color)          -> default "#273DBA"
 * `app:pds_colorInactive`          (color)          -> default "#9CA0BC"
 * `app:pds_fontFamily`             (string)         -> default "roboto"
 * `app:pds_indent`                 (dimension)      -> default "8dp"
 * `app:pds_defaultState`           (enum)           -> default "left"
-<br>
 * `app:pds_textLeft`               (string)         -> **mandatory field**
 * `app:pds_textRight`              (string)         -> **mandatory field**
 * `app:pds_textSize`               (dimension)      -> **mandatory field**
+
+##### Properties in code:
+
+* `view.setDuration(duration: Long)`                              
+* `view.setInterpolator(interpolator: TimeInterpolator)`          
+* `view.setOnStateChangeListener(listener: OnStateChangeListener)`
+* `view.getState(): CurrentState`                                 
 
 Kotlin
 -----
