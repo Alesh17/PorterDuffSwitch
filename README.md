@@ -9,9 +9,6 @@
 
 Inspired by [this article](https://android.jlelse.eu/the-power-of-android-porter-duff-mode-28b99ade45ec). 
 
-# PorterDuffSwitch
------
-
 Dependency
 -----
 
@@ -45,17 +42,17 @@ XML
 
 You must use the following properties in your XML to change switch.
 
-
 ##### Properties:
 
-* `app:pds_colorActive`                    (string)    -> default  "Loading"
-* `app:pds_colorInactive`                (dimension) -> default  56sp
-* `app:pds_defaultState`               (color)     -> default  #484848
-* `app:pds_fontFamily`                 (color)     -> default  #FFFFFF
-* `app:pds_indent`                 (color)     -> default  #FFFFFF
-* `app:pds_textLeft`                 (color)     -> default  #FFFFFF
-* `app:pds_textRight`                 (color)     -> default  #FFFFFF
-* `app:pds_textSize`                 (color)     -> default  #FFFFFF
+* `app:pds_colorActive`            (color)          -> default "#273DBA"
+* `app:pds_colorInactive`          (color)          -> default "#9CA0BC"
+* `app:pds_fontFamily`             (string)         -> default "roboto"
+* `app:pds_indent`                 (dimension)      -> default "8dp"
+* `app:pds_defaultState`           (enum)           -> default "left"
+
+* `app:pds_textLeft`               (string)         -> mandatory field
+* `app:pds_textRight`              (string)         -> mandatory field
+* `app:pds_textSize`               (dimension)      -> mandatory field
 
 Kotlin
 -----
@@ -68,12 +65,12 @@ class MainActivity : AppCompatActivity(), OnStateChangeListener {
      override fun onCreate(savedInstanceState: Bundle?) {
          super.onCreate(savedInstanceState)
          setContentView(R.layout.activity_main)
- 
+    
          porterDuffSwitch.setDuration(1000)
          porterDuffSwitch.setInterpolator(LinearOutSlowInInterpolator())
          porterDuffSwitch.setOnStateChangeListener(this)
-
-        porterDuffSwitch.getState()
+    
+         porterDuffSwitch.getState()
 
      }
  
@@ -125,7 +122,8 @@ public class MainActivity extends AppCompatActivity implements OnStateChangeList
 }
 ```
 
-Interpolator
+Interpolators
 -----
 
-Abouts interpolators you can read in this [article](https://thoughtbot.com/blog/android-interpolators-a-visual-guide).  
+Abouts interpolators you can read in this [article](https://thoughtbot.com/blog/android-interpolators-a-visual-guide).
+This is a really good article with ready-made examples.
