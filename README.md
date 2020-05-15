@@ -50,7 +50,7 @@ You must use the following properties in your XML to change switch.
 * `app:pds_indent`                 (dimension)      -> default "8dp"
 * `app:pds_defaultState`           (enum)           -> default "left"
 
-* `app:pds_textLeft`               (string)         -> mandatory field
+* `app:pds_textLeft`               (string)         -> <p style="color:#3F51B5">mandatory field</p> 
 * `app:pds_textRight`              (string)         -> mandatory field
 * `app:pds_textSize`               (dimension)      -> mandatory field
 
