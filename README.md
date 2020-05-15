@@ -49,10 +49,10 @@ You must use the following properties in your XML to change switch.
 * `app:pds_fontFamily`             (string)         -> default "roboto"
 * `app:pds_indent`                 (dimension)      -> default "8dp"
 * `app:pds_defaultState`           (enum)           -> default "left"
-<span style="color:blue">some *This is Blue italic.* text</span>
-* `app:pds_textLeft`               (string)         -> `mandatory field`
-* `app:pds_textRight`              (string)         -> `mandatory field`
-* `app:pds_textSize`               (dimension)      -> `mandatory field`
+<br>
+* `app:pds_textLeft`               (string)         -> **mandatory field**
+* `app:pds_textRight`              (string)         -> **mandatory field**
+* `app:pds_textSize`               (dimension)      -> **mandatory field**
 
 Kotlin
 -----
