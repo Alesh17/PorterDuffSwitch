@@ -1,5 +1,6 @@
 package com.alesh.library
 
+import android.animation.TimeInterpolator
 import android.animation.ValueAnimator
 import android.content.Context
 import android.graphics.Bitmap
@@ -11,31 +12,41 @@ import android.graphics.Rect
 import android.text.TextPaint
 import android.util.AttributeSet
 import android.view.View
-import android.view.animation.LinearInterpolator
+import android.view.animation.DecelerateInterpolator
 import androidx.core.content.res.ResourcesCompat
-import androidx.core.content.res.getColorOrThrow
 import androidx.core.content.res.getDimensionOrThrow
 import androidx.core.content.res.getStringOrThrow
-import androidx.core.graphics.withScale
 import androidx.core.graphics.withTranslation
 import com.alesh.library.helpers.BitmapHelper.textToBitmap
 import com.alesh.library.helpers.DisplayMetricsHelper.convertDpToPx
 import com.alesh.library.helpers.TextMeasureHelper
+import com.alesh.library.models.CurrentState
+import com.alesh.library.models.CurrentState.LEFT
+import com.alesh.library.models.CurrentState.RIGHT
 import kotlin.math.max
 
-class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, attrs) {
+class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, attrs),
+    View.OnClickListener {
 
-    var isInitialLaunch: Boolean = true
+    /* Listeners */
+    private var onChangeStateListener: OnStateChangeListener? = null
 
     /* Retrieved attributes */
     private var leftText: String = ""
     private var rightText: String = ""
     private var indent: Int = 0
-    private var startPosition = 0 // поменять имя
+    private var currentState: CurrentState = LEFT
+    private var animatorInterpolator: TimeInterpolator = DecelerateInterpolator()
+    private var animatorDuration: Long = 800
+
+    /* Current lerp */
+    private lateinit var currentLerp: () -> Float
 
     /* Default attributes */
+    private val defActiveColor = resources.getColor(R.color.activeColor)
+    private val defInactiveColor = resources.getColor(R.color.inactiveColor)
     private val defIndent = convertDpToPx(context, 8f).toInt()
-    private val defXfermode = PorterDuffXfermode(PorterDuff.Mode.DST_ATOP) // DST_ATOP
+    private val defXfermode = PorterDuffXfermode(PorterDuff.Mode.DST_ATOP)
 
     /* Paints */
     private var textPaint = TextPaint(Paint.ANTI_ALIAS_FLAG)
@@ -56,6 +67,7 @@ class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, at
     private var pointRight: Float = 0f
     private var currentSwitchPosition: Float = 0f
 
+    /* Animation completion percentage */
     private var percent = 0f
         set(value) {
             field = value
@@ -63,9 +75,7 @@ class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, at
         }
 
     private var animator: ValueAnimator = ValueAnimator.ofFloat(0f, 1f).apply {
-        addUpdateListener {
-            percent = it.animatedValue as Float
-        }
+        addUpdateListener { percent = it.animatedValue as Float }
     }
 
     init {
@@ -78,36 +88,40 @@ class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, at
         setupTextMeasureHelpers()
         setupAnimation()
         setupPoints()
+
+        /* Set initial lerp */
+        setLerpByCurrentState()
+
+        this.setOnClickListener(this)
     }
 
     private fun retrieveAttributes(attrs: AttributeSet) {
 
-        val typedArray = context.obtainStyledAttributes(
+        val array = context.obtainStyledAttributes(
             attrs, R.styleable.PorterDuffSwitch, 0, 0
         )
 
-        val fontId: Int
+        leftText = array.getStringOrThrow(R.styleable.PorterDuffSwitch_pds_textLeft)
+        rightText = array.getStringOrThrow(R.styleable.PorterDuffSwitch_pds_textRight)
+        indent = array.getDimensionPixelSize(R.styleable.PorterDuffSwitch_pds_indent, defIndent)
+        currentState =
+            if (array.getInt(R.styleable.PorterDuffSwitch_pds_defaultState, 0) == 0) LEFT
+            else RIGHT
 
-        typedArray.let {
-            leftText = it.getStringOrThrow(R.styleable.PorterDuffSwitch_pds_leftText)
-            rightText = it.getStringOrThrow(R.styleable.PorterDuffSwitch_pds_rightText)
-            indent = it.getDimensionPixelSize(R.styleable.PorterDuffSwitch_pds_indent, defIndent)
-            startPosition = it.getInt(R.styleable.PorterDuffSwitch_pds_defaultPosition, 0)
-            fontId = it.getResourceId(R.styleable.PorterDuffSwitch_pds_fontFamily, 0)
-        }
+        val fontId = array.getResourceId(R.styleable.PorterDuffSwitch_pds_fontFamily, 0)
 
         textPaint.apply {
-            color = typedArray.getColorOrThrow(R.styleable.PorterDuffSwitch_pds_inactiveColor)
+            color = array.getColor(R.styleable.PorterDuffSwitch_pds_colorInactive, defInactiveColor)
             typeface = fontId.takeIf { it != 0 }?.let { ResourcesCompat.getFont(context, it) }
-            textSize = typedArray.getDimensionOrThrow(R.styleable.PorterDuffSwitch_pds_textSize)
+            textSize = array.getDimensionOrThrow(R.styleable.PorterDuffSwitch_pds_textSize)
             xfermode = defXfermode
         }
 
         switchPaint.apply {
-            color = typedArray.getColorOrThrow(R.styleable.PorterDuffSwitch_pds_activeColor)
+            color = array.getColor(R.styleable.PorterDuffSwitch_pds_colorActive, defActiveColor)
         }
 
-        typedArray.recycle()
+        array.recycle()
     }
 
     private fun setupTextMeasureHelpers() {
@@ -116,18 +130,22 @@ class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, at
         rightTextOpt = TextMeasureHelper(rightText, textPaint)
     }
 
-    // CustomSpringInterpolator(0.6f) | DecelerateInterpolator() | FastOutSlowInInterpolator()
     private fun setupAnimation() {
         animator.apply {
-            interpolator = LinearInterpolator()
-            duration = 400
+            interpolator = animatorInterpolator
+            duration = animatorDuration
         }
     }
 
     private fun setupPoints() {
         pointLeft = leftTextOpt.width - max(leftTextOpt.width, rightTextOpt.width).toFloat()
         pointRight = leftTextOpt.width + indent.toFloat()
-        currentSwitchPosition = if (startPosition == 0) pointLeft else pointRight
+        currentSwitchPosition = if (currentState.isLeft()) pointLeft else pointRight
+    }
+
+    override fun onClick(view: View?) {
+        switch()
+        onChangeStateListener?.onStateChanged(this, currentState)
     }
 
     override fun onMeasure(widthMeasureSpec: Int, heightMeasureSpec: Int) {
@@ -139,98 +157,55 @@ class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, at
         leftTextBitmap = textToBitmap(leftText, textPaint, leftTextOpt.width + indent, height)
         rightTextBitmap = textToBitmap(rightText, textPaint, rightTextOpt.width, height)
         switchRect = Rect(0, 0, max(leftTextOpt.width, rightTextOpt.width), height)
-
     }
 
     override fun onDraw(canvas: Canvas?) {
         super.onDraw(canvas)
         drawSwitchRect(canvas)
         drawTexts(canvas)
-        //scaleText(canvas)
     }
 
     private fun drawSwitchRect(canvas: Canvas?) {
-
-        val futurePosition =
-            if (startPosition == 0) lerp(currentSwitchPosition, pointRight, percent)
-            else lerp(currentSwitchPosition, pointLeft, percent)
-
+        currentSwitchPosition = currentLerp()
         canvas?.withTranslation(currentSwitchPosition, 0f) { drawRect(switchRect, switchPaint) }
-
-        currentSwitchPosition = futurePosition
     }
 
     private fun drawTexts(canvas: Canvas?) {
-        val leftStartPoint = 0
-        val rightStartPoint = leftTextOpt.width + indent
-
-//        if (startPosition == 0) {
-//            canvas?.withScale(
-//                lerp(1f, 0.9f, percent *2),
-//                lerp(1f, 0.9f, percent * 2),
-//                leftTextOpt.width / 2f,
-//                leftTextOpt.height / 2f
-//
-//            ) {
-//                drawBitmap(leftTextBitmap, leftStartPoint.toFloat(), 0f, textPaint)
-//            }
-//
-//            canvas?.withScale(
-//                lerp(0.9f, 1f, percent),
-//                lerp(0.9f, 1f, percent),
-//                rightTextOpt.width / 2f,
-//                rightTextOpt.height / 2f
-//
-//            ) {
-//                drawBitmap(rightTextBitmap, rightStartPoint.toFloat(), 0f, textPaint)
-//            }
-//        } else {
-//
-//            canvas?.withScale(
-//                lerp(0.9f, 1f, percent),
-//                lerp(0.9f, 1f, percent),
-//                leftTextOpt.width / 2f,
-//                leftTextOpt.height / 2f
-//
-//            ) {
-//                drawBitmap(leftTextBitmap, leftStartPoint.toFloat(), 0f, textPaint)
-//            }
-//
-//            canvas?.withScale(
-//                lerp(1f, 0.9f, percent),
-//                lerp(1f, 0.9f, percent),
-//                rightTextOpt.width / 2f,
-//                rightTextOpt.height / 2f
-//
-//            ) {
-//                drawBitmap(rightTextBitmap, rightStartPoint.toFloat(), 0f, textPaint)
-//            }
-//        }
-
-        canvas?.drawBitmap(leftTextBitmap, leftStartPoint.toFloat(), 0f, textPaint)
-        canvas?.drawBitmap(rightTextBitmap, rightStartPoint.toFloat(), 0f, textPaint)
+        canvas?.drawBitmap(leftTextBitmap, 0f, 0f, textPaint)
+        canvas?.drawBitmap(rightTextBitmap, pointRight, 0f, textPaint)
     }
 
-    private fun scaleText(canvas: Canvas?) {
+    private fun lerp(startPoint: Float, endPoint: Float, percent: Float): Float {
+        return startPoint + (endPoint - startPoint) * percent
+    }
 
-        canvas?.withScale(
-            lerp(1f, 0.3f, percent),
-            lerp(1f, 0.3f, percent),
-            (leftTextOpt.width / 2).toFloat(),
-            (leftTextOpt.height / 2).toFloat()
-
-        ) {
-            drawBitmap(leftTextBitmap, 0f, 0f, textPaint)
+    private fun setLerpByCurrentState() {
+        currentLerp = if (currentState.isLeft()) {
+            { lerp(currentSwitchPosition, pointRight, percent) }
+        } else {
+            { lerp(currentSwitchPosition, pointLeft, percent) }
         }
     }
 
-    private fun lerp(a: Float, b: Float, t: Float): Float {
-        return a + (b - a) * t
+    private fun switch() {
+        setLerpByCurrentState()
+        animator.start()
+        currentState = currentState.switch()
     }
 
-    fun switch() {
-        animator.start()
-        if (isInitialLaunch) isInitialLaunch = false
-        else startPosition = if (startPosition == 0) 1 else 0
+    fun getState() = currentState
+
+    fun setOnStateChangeListener(listener: OnStateChangeListener) {
+        onChangeStateListener = listener
+    }
+
+    fun setInterpolator(interpolator: TimeInterpolator) {
+        animatorInterpolator = interpolator
+        setupAnimation()
+    }
+
+    fun setDuration(duration: Long) {
+        animatorDuration = duration
+        setupAnimation()
     }
 }
