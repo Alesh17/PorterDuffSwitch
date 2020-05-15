@@ -5,7 +5,7 @@
     android:id="@+id/root"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".KotlinActivity">
 
     <com.alesh.library.PorterDuffSwitch
         android:id="@+id/porterDuffSwitch"
@@ -15,22 +15,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:pds_colorActive="@color/colorPrimary"
-        app:pds_colorInactive="@color/colorPrimaryDark"
-        app:pds_defaultState="right"
+        app:pds_colorActive="@color/colorActive"
+        app:pds_colorInactive="@color/colorInactive"
+        app:pds_defaultState="left"
         app:pds_fontFamily="@font/ff_sf_pro_display_semibold"
-        app:pds_indent="4dp"
-        app:pds_textLeft="°Casadasd"
-        app:pds_textRight="°Fasdasd"
-        app:pds_textSize="24sp" />
-
-    <Button
-        android:id="@+id/button"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="GET STATE"
-        app:layout_constraintBottom_toTopOf="@+id/porterDuffSwitch"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:pds_indent="12dp"
+        app:pds_textLeft="Left"
+        app:pds_textRight="Right"
+        app:pds_textSize="32sp" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

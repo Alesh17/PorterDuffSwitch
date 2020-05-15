@@ -2,6 +2,7 @@
   <dictionary name="user">
     <words>
       <w>lerp</w>
+      <w>semibold</w>
       <w>xfermode</w>
     </words>
   </dictionary>
