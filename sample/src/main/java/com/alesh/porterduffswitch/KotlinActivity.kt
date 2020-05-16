@@ -24,8 +24,8 @@ class KotlinActivity : AppCompatActivity(), OnStateChangeListener {
 
     override fun onStateChanged(view: PorterDuffSwitch?, state: CurrentState) {
         when (state) {
-            CurrentState.LEFT  -> Toast.makeText(baseContext, "LEFT", Toast.LENGTH_SHORT).show();
-            CurrentState.RIGHT -> Toast.makeText(baseContext, "RIGHT", Toast.LENGTH_SHORT).show();
+            CurrentState.LEFT  -> Toast.makeText(baseContext, "LEFT", Toast.LENGTH_SHORT).show()
+            CurrentState.RIGHT -> Toast.makeText(baseContext, "RIGHT", Toast.LENGTH_SHORT).show()
         }
     }
 }
