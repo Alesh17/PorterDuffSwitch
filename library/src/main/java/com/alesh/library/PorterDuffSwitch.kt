@@ -218,7 +218,7 @@ class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, at
      * such as acceleration and deceleration. The default value is
      * {@link android.view.animation.AccelerateDecelerateInterpolator}
      *
-     * @param value the interpolator to be used by this animation. A value of <code>null</code>
+     * @param interpolator the interpolator to be used by this animation. A value of <code>null</code>
      * will result in linear interpolation.
      */
     fun setInterpolator(interpolator: TimeInterpolator) {
