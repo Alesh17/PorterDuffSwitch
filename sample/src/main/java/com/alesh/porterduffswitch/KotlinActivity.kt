@@ -15,11 +15,11 @@ class KotlinActivity : AppCompatActivity(), OnStateChangeListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_for_kotlin)
 
-        porterDuffSwitch.setDuration(10000)
-        porterDuffSwitch.setInterpolator(LinearOutSlowInInterpolator())
-        porterDuffSwitch.setOnStateChangeListener(this)
+        switchPush.setDuration(1000)
+        switchPush.setInterpolator(LinearOutSlowInInterpolator())
+        switchPush.setOnStateChangeListener(this)
 
-        porterDuffSwitch.getState()
+        switchPush.getState()
     }
 
     override fun onStateChanged(view: PorterDuffSwitch?, state: CurrentState) {

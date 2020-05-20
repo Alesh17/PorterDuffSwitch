@@ -176,7 +176,7 @@ class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, at
     }
 
     /* Linear interpolation function.
-    Just difference between two point multiplied on time (animation completion percentage in our case)) */
+    Just difference between two point multiplied on time (animation completion percentage in our case) */
     private fun lerp(startPoint: Float, endPoint: Float, percent: Float): Float {
         return startPoint + (endPoint - startPoint) * percent
     }

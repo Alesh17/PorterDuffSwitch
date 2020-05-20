@@ -7,21 +7,216 @@
     android:layout_height="match_parent"
     tools:context=".KotlinActivity">
 
-    <com.alesh.library.PorterDuffSwitch
-        android:id="@+id/porterDuffSwitch"
+    <TextView
+        android:id="@+id/tvSettings"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:layout_marginTop="32dp"
+        android:text="Settings"
+        android:textColor="@color/colorText"
+        android:textSize="28sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:pds_colorActive="@color/colorActive"
-        app:pds_colorInactive="@color/colorInactive"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <View
+        android:layout_width="0dp"
+        android:layout_height="1dp"
+        android:layout_marginStart="@dimen/main_horizontalMargin"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="@dimen/main_horizontalMargin"
+        android:background="@color/colorGrey"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSettings" />
+
+    <TextView
+        android:id="@+id/tvPushNotifications"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_horizontalMargin"
+        android:layout_marginTop="52dp"
+        android:text="Push notifications"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvSettings" />
+
+    <com.alesh.library.PorterDuffSwitch
+        android:id="@+id/switchPush"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/main_horizontalMargin"
+        app:layout_constraintBottom_toBottomOf="@+id/tvPushNotifications"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvPushNotifications"
+        app:pds_colorActive="@color/colorActive1"
+        app:pds_colorInactive="@color/colorInactive1"
         app:pds_defaultState="left"
         app:pds_fontFamily="@font/ff_sf_pro_display_semibold"
         app:pds_indent="12dp"
-        app:pds_textLeft="Left"
-        app:pds_textRight="Right"
-        app:pds_textSize="32sp" />
+        app:pds_textLeft="Enable"
+        app:pds_textRight="Disable"
+        app:pds_textSize="@dimen/main_textSize" />
+
+    <TextView
+        android:id="@+id/tvLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_horizontalMargin"
+        android:layout_marginTop="@dimen/main_verticalMargin"
+        android:text="Language"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvPushNotifications" />
+
+    <com.alesh.library.PorterDuffSwitch
+        android:id="@+id/switchLanguage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/main_horizontalMargin"
+        app:layout_constraintBottom_toBottomOf="@+id/tvLanguage"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvLanguage"
+        app:pds_colorActive="@color/colorActive2"
+        app:pds_colorInactive="@color/colorInactive2"
+        app:pds_defaultState="left"
+        app:pds_fontFamily="@font/ff_sf_pro_display_semibold"
+        app:pds_indent="12dp"
+        app:pds_textLeft="English"
+        app:pds_textRight="Italian"
+        app:pds_textSize="@dimen/main_textSize" />
+
+    <TextView
+        android:id="@+id/tvUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_horizontalMargin"
+        android:layout_marginTop="@dimen/main_verticalMargin"
+        android:text="Unit"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvLanguage" />
+
+    <com.alesh.library.PorterDuffSwitch
+        android:id="@+id/switchUnit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/main_horizontalMargin"
+        app:layout_constraintBottom_toBottomOf="@+id/tvUnit"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvUnit"
+        app:pds_colorActive="@color/colorActive3"
+        app:pds_colorInactive="@color/colorInactive3"
+        app:pds_defaultState="right"
+        app:pds_fontFamily="@font/ff_sf_pro_display_semibold"
+        app:pds_indent="12dp"
+        app:pds_textLeft="°C"
+        app:pds_textRight="°F"
+        app:pds_textSize="@dimen/main_textSize" />
+
+    <TextView
+        android:id="@+id/tvCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_horizontalMargin"
+        android:layout_marginTop="@dimen/main_verticalMargin"
+        android:text="Currency"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvUnit" />
+
+    <com.alesh.library.PorterDuffSwitch
+        android:id="@+id/switchCurrency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/main_horizontalMargin"
+        app:layout_constraintBottom_toBottomOf="@+id/tvCurrency"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvCurrency"
+        app:pds_colorActive="@color/colorActive4"
+        app:pds_colorInactive="@color/colorInactive4"
+        app:pds_defaultState="left"
+        app:pds_fontFamily="@font/ff_sf_pro_display_semibold"
+        app:pds_indent="12dp"
+        app:pds_textLeft="$"
+        app:pds_textRight="€"
+        app:pds_textSize="@dimen/main_textSize" />
+
+    <TextView
+        android:id="@+id/tvTimeFormat"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_horizontalMargin"
+        android:layout_marginTop="@dimen/main_verticalMargin"
+        android:text="Time format"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvCurrency" />
+
+    <com.alesh.library.PorterDuffSwitch
+        android:id="@+id/switchTime"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/main_horizontalMargin"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTimeFormat"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvTimeFormat"
+        app:pds_colorActive="@color/colorActive5"
+        app:pds_colorInactive="@color/colorInactive5"
+        app:pds_defaultState="right"
+        app:pds_fontFamily="@font/ff_sf_pro_display_semibold"
+        app:pds_indent="12dp"
+        app:pds_textLeft="12h"
+        app:pds_textRight="24h"
+        app:pds_textSize="@dimen/main_textSize" />
+
+    <TextView
+        android:id="@+id/tvTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_horizontalMargin"
+        android:layout_marginTop="@dimen/main_verticalMargin"
+        android:text="Theme"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTimeFormat" />
+
+    <com.alesh.library.PorterDuffSwitch
+        android:id="@+id/switchTheme"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/main_horizontalMargin"
+        app:layout_constraintBottom_toBottomOf="@+id/tvTheme"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvTheme"
+        app:pds_colorActive="@color/colorActive6"
+        app:pds_colorInactive="@color/colorInactive6"
+        app:pds_defaultState="right"
+        app:pds_fontFamily="@font/ff_sf_pro_display_semibold"
+        app:pds_indent="12dp"
+        app:pds_textLeft="Dark"
+        app:pds_textRight="Light"
+        app:pds_textSize="@dimen/main_textSize" />
+
+    <TextView
+        android:id="@+id/tvFavoriteActor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/main_horizontalMargin"
+        android:layout_marginTop="@dimen/main_verticalMargin"
+        android:text="Favorite actor"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/tvTheme" />
+
+    <com.alesh.library.PorterDuffSwitch
+        android:id="@+id/switchActor"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="@dimen/main_horizontalMargin"
+        app:layout_constraintBottom_toBottomOf="@+id/tvFavoriteActor"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/tvFavoriteActor"
+        app:pds_colorActive="@color/colorActive7"
+        app:pds_colorInactive="@color/colorInactive7"
+        app:pds_defaultState="left"
+        app:pds_fontFamily="@font/ff_sf_pro_display_semibold"
+        app:pds_indent="12dp"
+        app:pds_textLeft="Jim"
+        app:pds_textRight="Carrey"
+        app:pds_textSize="@dimen/main_textSize" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

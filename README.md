@@ -35,8 +35,8 @@ XML
         app:pds_defaultState="left"
         app:pds_fontFamily="@font/pro_display_semibold"
         app:pds_indent="4dp"
-        app:pds_textLeft="°Casadasd"
-        app:pds_textRight="°Fasdasd"
+        app:pds_textLeft="Text left"
+        app:pds_textRight="Text right"
         app:pds_textSize="24sp" />
 ```
 
