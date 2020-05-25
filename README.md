@@ -8,7 +8,7 @@
 
 Inspired by [this article](https://android.jlelse.eu/the-power-of-android-porter-duff-mode-28b99ade45ec). 
 
-Dependency
+Dependency (the library has not yet been published...)
 -----
 
 ```gradle
