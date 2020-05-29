@@ -76,13 +76,12 @@ class MainActivity : AppCompatActivity(), OnStateChangeListener {
          porterDuffSwitch.setOnStateChangeListener(this)
     
          porterDuffSwitch.getState()
-
      }
  
      override fun onStateChanged(view: PorterDuffSwitch?, state: CurrentState) {
          when (state) {
-             CurrentState.LEFT  -> Toast.makeText(baseContext, "LEFT", Toast.LENGTH_SHORT).show();
-             CurrentState.RIGHT -> Toast.makeText(baseContext, "RIGHT", Toast.LENGTH_SHORT).show();
+             CurrentState.LEFT  -> Toast.makeText(baseContext, "LEFT", Toast.LENGTH_SHORT).show()
+             CurrentState.RIGHT -> Toast.makeText(baseContext, "RIGHT", Toast.LENGTH_SHORT).show()
          }
      }
  }
@@ -108,7 +107,6 @@ public class MainActivity extends AppCompatActivity implements OnStateChangeList
         porterDuffSwitch.setOnStateChangeListener(this);
 
         porterDuffSwitch.getState();
-
     }
 
     @Override
