@@ -15,16 +15,9 @@ class KotlinActivity : AppCompatActivity(), OnStateChangeListener {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_for_kotlin)
 
-        switchPush.setDuration(1000)
+        switchPush.setDuration(4000)
         switchPush.setInterpolator(LinearOutSlowInInterpolator())
         switchPush.setOnStateChangeListener(this)
-        switchPush.getState()
-
-        /* Set state with animation */
-        switchPush.setState(CurrentState.RIGHT)
-
-        /* Set state without animation */
-        switchPush.setDefaultState(CurrentState.RIGHT)
     }
 
     override fun onStateChanged(view: PorterDuffSwitch?, state: CurrentState) {
