@@ -54,10 +54,12 @@ You must use the following properties in your XML to change switch.
 
 ##### Properties in code:
 
+* `view.getState(): CurrentState`                                 
+* `view.setState(): CurrentState`                                 
+* `view.setDefaultState(): CurrentState`  
 * `view.setDuration(duration: Long)`                              
 * `view.setInterpolator(interpolator: TimeInterpolator)`          
-* `view.setOnStateChangeListener(listener: OnStateChangeListener)`
-* `view.getState(): CurrentState`                                 
+* `view.setOnStateChangeListener(listener: OnStateChangeListener)`                               
 
 Kotlin
 -----
@@ -74,8 +76,14 @@ class MainActivity : AppCompatActivity(), OnStateChangeListener {
          porterDuffSwitch.setDuration(1000)
          porterDuffSwitch.setInterpolator(LinearOutSlowInInterpolator())
          porterDuffSwitch.setOnStateChangeListener(this)
-    
          porterDuffSwitch.getState()
+
+        /* Set state without animation */
+        switchPush.setDefaultState(CurrentState.RIGHT)
+
+        /* Set state with animation */
+        switchPush.setState(CurrentState.RIGHT)
+
      }
  
      override fun onStateChanged(view: PorterDuffSwitch?, state: CurrentState) {
@@ -105,8 +113,14 @@ public class MainActivity extends AppCompatActivity implements OnStateChangeList
         porterDuffSwitch.setDuration(400);
         porterDuffSwitch.setInterpolator(new LinearOutSlowInInterpolator());
         porterDuffSwitch.setOnStateChangeListener(this);
-
         porterDuffSwitch.getState();
+
+        /* Set state without animation */
+        switchPush.setDefaultState(CurrentState.RIGHT);
+
+        /* Set state with animation */
+        switchPush.setState(CurrentState.RIGHT);
+
     }
 
     @Override
