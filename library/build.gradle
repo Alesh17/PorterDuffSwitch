@@ -6,7 +6,7 @@ apply plugin: 'com.github.dcendents.android-maven'
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
-    group='com.github.alesh17'
+    group = 'com.github.alesh17'
 
     defaultConfig {
         minSdkVersion 21
