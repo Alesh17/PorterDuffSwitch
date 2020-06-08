@@ -8,12 +8,25 @@
 
 Inspired by [this article](https://android.jlelse.eu/the-power-of-android-porter-duff-mode-28b99ade45ec). 
 
-Dependency (the library has not yet been published...)
+Dependency
 -----
+
+Add it in your root build.gradle at the end of repositories:
+
+```gradle
+allprojects {
+    repositories {
+	    ...
+		maven { url 'https://jitpack.io' }
+	}
+}
+```
+
+Add dependency in your app module:
 
 ```gradle
 dependencies {
-  implementation 'com.alesh:porterduff-switch:1.0.0'
+  implementation 'com.github.alesh17:PorterDuffSwitch:1.0'
 }
 ```
 
