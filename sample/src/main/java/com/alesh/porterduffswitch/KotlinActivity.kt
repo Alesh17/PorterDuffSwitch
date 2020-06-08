@@ -20,11 +20,11 @@ class KotlinActivity : AppCompatActivity(), OnStateChangeListener {
         switchPush.setOnStateChangeListener(this)
         switchPush.getState()
 
-        /* Set state without animation */
-        switchPush.setDefaultState(CurrentState.RIGHT)
-
         /* Set state with animation */
         switchPush.setState(CurrentState.RIGHT)
+
+        /* Set state without animation */
+        switchPush.setDefaultState(CurrentState.RIGHT)
     }
 
     override fun onStateChanged(view: PorterDuffSwitch?, state: CurrentState) {

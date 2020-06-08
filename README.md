@@ -78,12 +78,11 @@ class MainActivity : AppCompatActivity(), OnStateChangeListener {
          porterDuffSwitch.setOnStateChangeListener(this)
          porterDuffSwitch.getState()
 
-        /* Set state without animation */
-        switchPush.setDefaultState(CurrentState.RIGHT)
+         /* Set state with animation */
+         switchPush.setState(CurrentState.RIGHT)
 
-        /* Set state with animation */
-        switchPush.setState(CurrentState.RIGHT)
-
+         /* Set state without animation */
+         switchPush.setDefaultState(CurrentState.RIGHT)
      }
  
      override fun onStateChanged(view: PorterDuffSwitch?, state: CurrentState) {
@@ -115,11 +114,11 @@ public class MainActivity extends AppCompatActivity implements OnStateChangeList
         porterDuffSwitch.setOnStateChangeListener(this);
         porterDuffSwitch.getState();
 
-        /* Set state without animation */
-        switchPush.setDefaultState(CurrentState.RIGHT);
-
         /* Set state with animation */
         switchPush.setState(CurrentState.RIGHT);
+        
+        /* Set state without animation */
+        switchPush.setDefaultState(CurrentState.RIGHT);
 
     }
 
