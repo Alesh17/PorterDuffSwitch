@@ -18,8 +18,13 @@ class KotlinActivity : AppCompatActivity(), OnStateChangeListener {
         switchPush.setDuration(1000)
         switchPush.setInterpolator(LinearOutSlowInInterpolator())
         switchPush.setOnStateChangeListener(this)
-
         switchPush.getState()
+
+        /* Set state without animation */
+        switchPush.setDefaultState(CurrentState.RIGHT)
+
+        /* Set state with animation */
+        switchPush.setState(CurrentState.RIGHT)
     }
 
     override fun onStateChanged(view: PorterDuffSwitch?, state: CurrentState) {
