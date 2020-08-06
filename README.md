@@ -154,5 +154,5 @@ public class MainActivity extends AppCompatActivity implements OnStateChangeList
 Interpolators
 -----
 
-Abouts interpolators you can read in this [article](https://thoughtbot.com/blog/android-interpolators-a-visual-guide).
+About interpolators you can read in this [article](https://thoughtbot.com/blog/android-interpolators-a-visual-guide).
 This is a really good article with ready-made examples.
