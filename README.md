@@ -26,7 +26,7 @@ Add dependency in your app module:
 
 ```gradle
 dependencies {
-  implementation 'com.github.alesh17:PorterDuffSwitch:1.0'
+  implementation 'com.github.alesh17:PorterDuffSwitch:1.1'
 }
 ```
 
