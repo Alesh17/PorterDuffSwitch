@@ -17,16 +17,15 @@ import androidx.core.content.res.ResourcesCompat
 import androidx.core.content.res.getDimensionOrThrow
 import androidx.core.content.res.getStringOrThrow
 import androidx.core.graphics.withTranslation
-import com.alesh.library.helpers.BitmapHelper.textToBitmap
-import com.alesh.library.helpers.DisplayMetricsHelper.convertDpToPx
-import com.alesh.library.helpers.TextMeasureHelper
 import com.alesh.library.models.CurrentState
 import com.alesh.library.models.CurrentState.LEFT
 import com.alesh.library.models.CurrentState.RIGHT
+import com.alesh.library.utils.TextMeasureHelper
+import com.alesh.library.utils.dpToPx
+import com.alesh.library.utils.toBitmap
 import kotlin.math.max
 
-class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, attrs),
-    View.OnClickListener {
+class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, attrs), View.OnClickListener {
 
     /* Listeners */
     private var onChangeStateListener: OnStateChangeListener? = null
@@ -45,7 +44,7 @@ class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, at
     /* Default attributes */
     private val defActiveColor = resources.getColor(R.color.activeColor)
     private val defInactiveColor = resources.getColor(R.color.inactiveColor)
-    private val defIndent = convertDpToPx(context, 8f).toInt()
+    private val defIndent = context.dpToPx(8f).toInt()
     private val defXfermode = PorterDuffXfermode(PorterDuff.Mode.DST_ATOP)
 
     /* Paints */
@@ -97,9 +96,7 @@ class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, at
 
     private fun retrieveAttributes(attrs: AttributeSet) {
 
-        val array = context.obtainStyledAttributes(
-            attrs, R.styleable.PorterDuffSwitch, 0, 0
-        )
+        val array = context.obtainStyledAttributes(attrs, R.styleable.PorterDuffSwitch, 0, 0)
 
         leftText = array.getStringOrThrow(R.styleable.PorterDuffSwitch_pds_textLeft)
         rightText = array.getStringOrThrow(R.styleable.PorterDuffSwitch_pds_textRight)
@@ -154,8 +151,8 @@ class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, at
 
     override fun onSizeChanged(w: Int, h: Int, oldw: Int, oldh: Int) {
         super.onSizeChanged(w, h, oldw, oldh)
-        leftTextBitmap = textToBitmap(leftText, textPaint, leftTextOpt.width + indent, height)
-        rightTextBitmap = textToBitmap(rightText, textPaint, rightTextOpt.width, height)
+        leftTextBitmap = leftText.toBitmap(leftTextOpt.width + indent, height, textPaint)
+        rightTextBitmap = rightText.toBitmap(rightTextOpt.width, height, textPaint)
         switchRect = Rect(0, 0, max(leftTextOpt.width, rightTextOpt.width), height)
     }
 
@@ -175,14 +172,18 @@ class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, at
         canvas?.drawBitmap(rightTextBitmap, pointRight, 0f, textPaint)
     }
 
-    /* Linear interpolation function.
-    Just difference between two point multiplied on time (animation completion percentage in our case) */
+    /**
+     * Linear interpolation function.
+     * Just difference between two point multiplied on time (animation completion percentage in our case).
+     */
     private fun lerp(startPoint: Float, endPoint: Float, percent: Float): Float {
         return startPoint + (endPoint - startPoint) * percent
     }
 
-    /* Since the lerp functions of moving left and right are different,
-    before each start of the animation we set the lerp function in a separate variable */
+    /**
+     * Since the lerp functions of moving left and right are different,
+     * before each start of the animation we set the lerp function in a separate variable.
+     */
     private fun setLerpByCurrentState() {
         currentLerp = if (currentState.isLeft()) {
             { lerp(currentSwitchPosition, pointRight, percent) }
@@ -198,14 +199,14 @@ class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, at
     }
 
     /**
-     * @return current state (LEFT or RIGHT) of PorterDuffSwitch
+     * @return current state (LEFT or RIGHT) of PorterDuffSwitch.
      */
     fun getState() = currentState
 
     /**
      * Sets the default state of switch without animation.
      *
-     * @param state The state for which you want to change switch state
+     * @param state The state for which you want to change switch state.
      */
     fun setDefaultState(state: CurrentState) {
         currentState = state
@@ -216,7 +217,7 @@ class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, at
     /**
      * Sets state of switch in runtime with animation.
      *
-     * @param state The state for which you want to change switch state
+     * @param state The state for which you want to change switch state.
      */
     fun setState(state: CurrentState) {
         if (currentState != state) switch()
@@ -252,7 +253,7 @@ class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, at
      * Register a callback to be invoked when the checked state of this button
      * changes.
      *
-     * @param listener the callback to call on checked state change
+     * @param listener the callback to call on checked state change.
      */
     fun setOnStateChangeListener(listener: OnStateChangeListener) {
         onChangeStateListener = listener

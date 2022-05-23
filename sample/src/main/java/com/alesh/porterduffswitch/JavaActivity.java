@@ -31,11 +31,11 @@ public class JavaActivity extends AppCompatActivity implements OnStateChangeList
     public void onStateChanged(@Nullable PorterDuffSwitch view, @NotNull CurrentState state) {
         switch (state) {
             case LEFT: {
-                Toast.makeText(getBaseContext(), "LEFT JAVA", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "LEFT", Toast.LENGTH_SHORT).show();
                 break;
             }
             case RIGHT: {
-                Toast.makeText(getBaseContext(), "RIGHT JAVA", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getBaseContext(), "RIGHT", Toast.LENGTH_SHORT).show();
                 break;
             }
         }
