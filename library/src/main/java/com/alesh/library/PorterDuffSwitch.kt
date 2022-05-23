@@ -203,13 +203,23 @@ class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, at
     fun getState() = currentState
 
     /**
-     * Register a callback to be invoked when the checked state of this button
-     * changes.
+     * Sets the default state of switch without animation.
      *
-     * @param listener the callback to call on checked state change
+     * @param state The state for which you want to change switch state
      */
-    fun setOnStateChangeListener(listener: OnStateChangeListener) {
-        onChangeStateListener = listener
+    fun setDefaultState(state: CurrentState) {
+        currentState = state
+        setLerpByCurrentState()
+        setupPoints()
+    }
+
+    /**
+     * Sets state of switch in runtime with animation.
+     *
+     * @param state The state for which you want to change switch state
+     */
+    fun setState(state: CurrentState) {
+        if (currentState != state) switch()
     }
 
     /**
@@ -236,5 +246,15 @@ class PorterDuffSwitch(context: Context, attrs: AttributeSet) : View(context, at
         if (duration < 0) throw IllegalArgumentException("Animators cannot have negative duration: $duration")
         animatorDuration = duration
         setupAnimation()
+    }
+
+    /**
+     * Register a callback to be invoked when the checked state of this button
+     * changes.
+     *
+     * @param listener the callback to call on checked state change
+     */
+    fun setOnStateChangeListener(listener: OnStateChangeListener) {
+        onChangeStateListener = listener
     }
 }

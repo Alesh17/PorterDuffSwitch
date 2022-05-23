@@ -11,9 +11,22 @@ Inspired by [this article](https://android.jlelse.eu/the-power-of-android-porter
 Dependency
 -----
 
+Add it in your root build.gradle at the end of repositories:
+
+```gradle
+allprojects {
+    repositories {
+	/* other repositories */
+	maven { url 'https://jitpack.io' }
+    }
+}
+```
+
+Add dependency in your app module:
+
 ```gradle
 dependencies {
-  implementation 'com.alesh:porterduff-switch:1.0.0'
+  implementation 'com.github.alesh17:PorterDuffSwitch:1.0'
 }
 ```
 
@@ -54,10 +67,12 @@ You must use the following properties in your XML to change switch.
 
 ##### Properties in code:
 
+* `view.getState(): CurrentState`                                 
+* `view.setState()`                                 
+* `view.setDefaultState()`  
 * `view.setDuration(duration: Long)`                              
 * `view.setInterpolator(interpolator: TimeInterpolator)`          
-* `view.setOnStateChangeListener(listener: OnStateChangeListener)`
-* `view.getState(): CurrentState`                                 
+* `view.setOnStateChangeListener(listener: OnStateChangeListener)`                               
 
 Kotlin
 -----
@@ -74,15 +89,19 @@ class MainActivity : AppCompatActivity(), OnStateChangeListener {
          porterDuffSwitch.setDuration(1000)
          porterDuffSwitch.setInterpolator(LinearOutSlowInInterpolator())
          porterDuffSwitch.setOnStateChangeListener(this)
-    
          porterDuffSwitch.getState()
 
+         /* Set state with animation */
+         switchPush.setState(CurrentState.RIGHT)
+
+         /* Set state without animation */
+         switchPush.setDefaultState(CurrentState.RIGHT)
      }
  
      override fun onStateChanged(view: PorterDuffSwitch?, state: CurrentState) {
          when (state) {
-             CurrentState.LEFT  -> Toast.makeText(baseContext, "LEFT", Toast.LENGTH_SHORT).show();
-             CurrentState.RIGHT -> Toast.makeText(baseContext, "RIGHT", Toast.LENGTH_SHORT).show();
+             CurrentState.LEFT  -> Toast.makeText(baseContext, "LEFT", Toast.LENGTH_SHORT).show()
+             CurrentState.RIGHT -> Toast.makeText(baseContext, "RIGHT", Toast.LENGTH_SHORT).show()
          }
      }
  }
@@ -106,8 +125,13 @@ public class MainActivity extends AppCompatActivity implements OnStateChangeList
         porterDuffSwitch.setDuration(400);
         porterDuffSwitch.setInterpolator(new LinearOutSlowInInterpolator());
         porterDuffSwitch.setOnStateChangeListener(this);
-
         porterDuffSwitch.getState();
+
+        /* Set state with animation */
+        switchPush.setState(CurrentState.RIGHT);
+        
+        /* Set state without animation */
+        switchPush.setDefaultState(CurrentState.RIGHT);
 
     }
 
@@ -130,5 +154,5 @@ public class MainActivity extends AppCompatActivity implements OnStateChangeList
 Interpolators
 -----
 
-Abouts interpolators you can read in this [article](https://thoughtbot.com/blog/android-interpolators-a-visual-guide).
+About interpolators you can read in this [article](https://thoughtbot.com/blog/android-interpolators-a-visual-guide).
 This is a really good article with ready-made examples.

@@ -22,11 +22,9 @@ public class JavaActivity extends AppCompatActivity implements OnStateChangeList
 
         PorterDuffSwitch porterDuffSwitch = findViewById(R.id.porterDuffSwitch);
 
-        porterDuffSwitch.setDuration(400);
+        porterDuffSwitch.setDuration(4000);
         porterDuffSwitch.setInterpolator(new AnticipateInterpolator());
         porterDuffSwitch.setOnStateChangeListener(this);
-
-        porterDuffSwitch.getState();
     }
 
     @Override
