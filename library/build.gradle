@@ -13,8 +13,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 32
-        versionCode 2
-        versionName "1.2.5"
+        versionCode 3
+        versionName "1.2.6"
     }
 
     buildTypes {
@@ -24,11 +24,11 @@ android {
         }
     }
 
-    publishing {
-        singleVariant('release') {
-            withSourcesJar()
-        }
-    }
+//    publishing {
+//        singleVariant('release') {
+//            withSourcesJar()
+//        }
+//    }
 
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_11
@@ -40,18 +40,18 @@ android {
     }
 }
 
-publishing {
-    publications {
-        release(MavenPublication) {
-            groupId = 'com.github.alesh17'
-            artifactId = 'PorterDuffSwitch'
-            version = '1.2.5'
-            afterEvaluate {
-                from components.release
-            }
-        }
-    }
-}
+//publishing {
+//    publications {
+//        release(MavenPublication) {
+//            groupId = 'com.github.alesh17'
+//            artifactId = 'PorterDuffSwitch'
+//            version = '1.2.5'
+//            afterEvaluate {
+//                from components.release
+//            }
+//        }
+//    }
+//}
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
