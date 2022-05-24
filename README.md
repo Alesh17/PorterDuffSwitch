@@ -6,7 +6,7 @@
 
 Inspired by [this article](https://android.jlelse.eu/the-power-of-android-porter-duff-mode-28b99ade45ec). 
 
-<img src="/art/preview.gif" alt="sample" title="sample" width="320" height="600"  />
+<img align="right" vspace="52" src="/art/preview.gif" alt="sample" title="sample" width="320" height="600"  />
 
 Dependency
 -----
@@ -80,7 +80,7 @@ Kotlin
 ```kotlin
 import androidx.interpolator.view.animation.LinearOutSlowInInterpolator
 
-class MainActivity : AppCompatActivity(), OnStateChangeListener {
+class MainActivity : AppCompatActivity() {
  
      override fun onCreate(savedInstanceState: Bundle?) {
          super.onCreate(savedInstanceState)
@@ -88,21 +88,19 @@ class MainActivity : AppCompatActivity(), OnStateChangeListener {
     
          porterDuffSwitch.setDuration(1000)
          porterDuffSwitch.setInterpolator(LinearOutSlowInInterpolator())
-         porterDuffSwitch.setOnStateChangeListener(this)
          porterDuffSwitch.getState()
+         porterDuffSwitch.setOnStateChangeListener { view, state ->
+             when (state) {
+                 CurrentState.LEFT  -> Toast.makeText(baseContext, "LEFT", Toast.LENGTH_SHORT).show()
+                 CurrentState.RIGHT -> Toast.makeText(baseContext, "RIGHT", Toast.LENGTH_SHORT).show()
+             }
+         }
 
          /* Set state with animation */
          switchPush.setState(CurrentState.RIGHT)
 
          /* Set state without animation */
          switchPush.setDefaultState(CurrentState.RIGHT)
-     }
- 
-     override fun onStateChanged(view: PorterDuffSwitch?, state: CurrentState) {
-         when (state) {
-             CurrentState.LEFT  -> Toast.makeText(baseContext, "LEFT", Toast.LENGTH_SHORT).show()
-             CurrentState.RIGHT -> Toast.makeText(baseContext, "RIGHT", Toast.LENGTH_SHORT).show()
-         }
      }
  }
 ```

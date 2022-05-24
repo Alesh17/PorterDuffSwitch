@@ -2,7 +2,6 @@ apply plugin: 'com.android.library'
 apply plugin: 'maven-publish'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-group = 'com.github.alesh17'
 
 android {
 
@@ -13,8 +12,8 @@ android {
     defaultConfig {
         minSdkVersion 21
         targetSdkVersion 32
-        versionCode 4
-        versionName "1.2.7"
+        versionCode 1
+        versionName app_version
     }
 
     buildTypes {
@@ -45,7 +44,7 @@ publishing {
         release(MavenPublication) {
             groupId = 'com.github.alesh17'
             artifactId = 'PorterDuffSwitch'
-            version = '1.2.7'
+            version = app_version
             afterEvaluate {
                 from components.release
             }
