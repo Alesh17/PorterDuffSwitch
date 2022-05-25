@@ -6,7 +6,9 @@
 
 Inspired by [this article](https://android.jlelse.eu/the-power-of-android-porter-duff-mode-28b99ade45ec). 
 
-<img align="right" vspace="52" src="/art/preview.gif" alt="sample" title="sample" width="320" height="600"  />
+<img align="right" vspace="52" src="/art/preview1.gif" alt="sample" title="sample" width="600" height="224"  />
+
+<img align="right" vspace="52" src="/art/preview2.gif" alt="sample" title="sample" width="320" height="600"  />
 
 Dependency
 -----
