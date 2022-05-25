@@ -4,7 +4,7 @@
 [![API](https://img.shields.io/badge/API-21%2B-brightgreen.svg?style=flat)](https://android-arsenal.com/api?level=21)
 [![LinkedIn](https://img.shields.io/badge/LinkedIn-Alesh-blue)](https://www.linkedin.com/in/dmitry-aleshkov)
 
-Inspired by [this article](https://android.jlelse.eu/the-power-of-android-porter-duff-mode-28b99ade45ec). Apk for test [here](/apk/sample.apk).
+Inspired by [this article](https://android.jlelse.eu/the-power-of-android-porter-duff-mode-28b99ade45ec). Apk for test [here](https://github.com/Alesh17/PorterDuffSwitch/raw/master/apk/sample.apk).
 
 <img align="right" vspace="52" src="/art/preview1.gif" alt="sample" title="sample" width="300" height="112"  />
 
