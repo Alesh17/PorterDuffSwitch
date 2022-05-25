@@ -70,8 +70,8 @@ You must use the following properties in your XML to change switch.
 ##### Properties in code:
 
 * `view.getState(): CurrentState`                                 
-* `view.setState()`                                 
-* `view.setDefaultState()`  
+* `view.setState(state: CurrentState)`                                 
+* `view.setDefaultState(state: CurrentState)`  
 * `view.setDuration(duration: Long)`                              
 * `view.setInterpolator(interpolator: TimeInterpolator)`          
 * `view.setOnStateChangeListener(listener: OnStateChangeListener)`                               
