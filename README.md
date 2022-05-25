@@ -8,7 +8,7 @@ Inspired by [this article](https://android.jlelse.eu/the-power-of-android-porter
 
 <img align="right" vspace="52" src="/art/preview1.gif" alt="sample" title="sample" width="300" height="112"  />
 
-<img align="right" vspace="52" src="/art/preview2.gif" alt="sample" title="sample" width="230" height="244"  />
+<img align="right" vspace="52" src="/art/preview2.gif" alt="sample" title="sample" width="300" height="318"  />
 
 Dependency
 -----
