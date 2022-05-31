@@ -6,9 +6,8 @@
 
 Inspired by [this article](https://android.jlelse.eu/the-power-of-android-porter-duff-mode-28b99ade45ec). Apk for test [here](https://github.com/Alesh17/PorterDuffSwitch/raw/master/apk/sample.apk).
 
-<img align="right" vspace="52" src="/art/preview1.gif" alt="sample" title="sample" width="300" height="112"  />
-
-<img align="right" vspace="52" src="/art/preview2.gif" alt="sample" title="sample" width="300" height="318"  />
+<img src="/art/preview1.gif" alt="sample" title="sample" width="300" height="112"  />
+<img src="/art/preview2.gif" alt="sample" title="sample" width="300" height="318"  />
 
 Dependency
 -----
